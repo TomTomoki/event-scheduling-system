@@ -1,0 +1,14 @@
+<h1> Schedule Detail:</h1>
+<ul>
+    <li>ScheduleID: {{ schedule.scheduleid }}</li>
+    {% if schedule.scheduleddate %}
+        <li>Scheduled Date: {{ schedule.scheduleddate }}</li>
+    {% endif %}
+    <li>Start Time: {{ schedule.starttime }}</li>
+    <li>End Time: {{ schedule.endtime }}</li>
+    {% if schedule.recurring %}
+        <li>Day of Week: {{ schedule.dayofweek }}</li>
+        <li>Recurring Start Date: {{ schedule.recurringstartdate }}</li>
+        <li>Recurring End Date: {{ schedule.recurringenddate }}</li>
+    {% endif %}
+</ul>
