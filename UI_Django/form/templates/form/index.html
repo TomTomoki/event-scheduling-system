@@ -1,9 +1,11 @@
+<div class="topnav">
+    <a class="active" href="{% url 'form:index' %}">Home</a>
+</div> 
+
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <div class="alert alert-dismissible alert-success">
-        <strong>{{message}}</strong>
-    </div>
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %}
@@ -24,16 +26,16 @@
 <fieldset>
     {% csrf_token %}
     <label>Room:</label>
-    <select name="room">
-        <option label="" selected></option>
+    <select name="room" required>
+        <option label="" selected disabled></option>
         {% for room in all_rooms %}
         <option value="{{ room.roomid }}">Room Name: {{ room.roomname }}, Capacity: {{ room.capacity }}, Building: {{ room.buildingid.buildingname }}</option>
         {% endfor %}
     </select>
     <br><br><br>
     <label>Course or Event:</label>
-    <select name="course_event">
-        <option label="" selected></option>
+    <select name="course_event" required>
+        <option label="" selected disabled></option>
         <optgroup label="Available Courses"></optgroup>
         {% for course in all_courses %}
             <option value="course_{{ course.courseid }}">Course Name: {{ course.coursename }}, Offered: {{ course.academicyear }}-{{ course.academicsemester }}, Instructor: {{ course.instructorid.facultyfirstname }} {{ course.instructorid.facultylastname }}</option>
@@ -67,19 +69,19 @@
     <br><br><br>
     <label>Select Days of Week (if recurring):</label>
     <br>
-    <input type="checkbox" id="Monday" name="Monday" value=1>
+    <input type="checkbox" id="Monday" name="recuring_days" value="Mon">
     <label for="Monday"> Monday</label>
-    <input type="checkbox" id="Tuesday" name="Tuesday" value=1>
+    <input type="checkbox" id="Tuesday" name="recuring_days" value="Tue">
     <label for="Tuesday"> Tuesday</label>
-    <input type="checkbox" id="Wednesday" name="Wednesday" value=1>
+    <input type="checkbox" id="Wednesday" name="recuring_days" value="Wed">
     <label for="Wednesday"> Wednesday</label>
-    <input type="checkbox" id="Thursday" name="Thursday" value=1>
+    <input type="checkbox" id="Thursday" name="recuring_days" value="Thu">
     <label for="Thursday"> Thursday</label>
-    <input type="checkbox" id="Friday" name="Friday" value=1>
+    <input type="checkbox" id="Friday" name="recuring_days" value="Fri">
     <label for="Friday"> Friday</label>
-    <input type="checkbox" id="Saturday" name="Saturday" value=1>
+    <input type="checkbox" id="Saturday" name="recuring_days" value="Sat">
     <label for="Saturday"> Saturday</label>
-    <input type="checkbox" id="Sunday" name="Sunday" value=1>
+    <input type="checkbox" id="Sunday" name="recuring_days" value="Sun">
     <label for="Sunday"> Sunday</label>
     <br><br><br>
     <label>Recurring Start Date (if recurring):</label>
