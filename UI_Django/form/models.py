@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Faculty(models.Model):
-    facultyid = models.IntegerField(primary_key=True)
+    facultyid = models.AutoField(primary_key=True)
     facultyfirstname = models.CharField(max_length=20)
     facultylastname = models.CharField(max_length=20)
     facultyemail = models.CharField(max_length=50)
@@ -13,7 +13,7 @@ class Faculty(models.Model):
 
 
 class Course(models.Model):
-    courseid = models.IntegerField(primary_key=True)
+    courseid = models.AutoField(primary_key=True)
     coursename = models.CharField(max_length=50)
     instructorid = models.ForeignKey(Faculty, models.DO_NOTHING, db_column='instructorid', blank=True, null=True)
     academicyear = models.DecimalField(max_digits=4, decimal_places=0)
@@ -25,7 +25,7 @@ class Course(models.Model):
 
 
 class Building(models.Model):
-    buildingid = models.IntegerField(primary_key=True)
+    buildingid = models.AutoField(primary_key=True)
     buildingname = models.CharField(max_length=10)
     buildingaddress = models.CharField(max_length=50)
 
@@ -35,7 +35,7 @@ class Building(models.Model):
 
 
 class Room(models.Model):
-    roomid = models.IntegerField(primary_key=True)
+    roomid = models.AutoField(primary_key=True)
     roomname = models.CharField(max_length=15)
     buildingid = models.ForeignKey(Building, models.DO_NOTHING, db_column='buildingid', blank=True, null=True)
     capacity = models.IntegerField()
@@ -46,7 +46,7 @@ class Room(models.Model):
 
 
 class Department(models.Model):
-    departmentid = models.IntegerField(primary_key=True)
+    departmentid = models.AutoField(primary_key=True)
     departmentname = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
@@ -55,7 +55,7 @@ class Department(models.Model):
 
 
 class Staff(models.Model):
-    staffid = models.IntegerField(primary_key=True)
+    staffid = models.AutoField(primary_key=True)
     departmentid = models.ForeignKey(Department, models.DO_NOTHING, db_column='departmentid', blank=True, null=True)
     stafffirstname = models.CharField(max_length=20)
     stafflastname = models.CharField(max_length=20)
@@ -67,10 +67,10 @@ class Staff(models.Model):
 
 
 class Event(models.Model):
-    eventid = models.IntegerField(primary_key=True)
+    eventid = models.AutoField(primary_key=True)
     eventname = models.CharField(max_length=50)
     maincontact = models.ForeignKey(Staff, models.DO_NOTHING, db_column='maincontact', blank=True, null=True, related_name = 'maincontact')
-    secondcontact = models.ForeignKey(Staff, models.DO_NOTHING, db_column='secondcontact', blank=True, null=True, related_name = 'secondcontact')
+    secondcontact = models.ForeignKey(Staff, models.DO_NOTHING, db_column='secondcontact', blank=True, null=True,  related_name = 'secondcontact')
 
     class Meta:
         managed = False
@@ -78,7 +78,7 @@ class Event(models.Model):
 
 
 class Roomassignment(models.Model):
-    roomassignmentid = models.IntegerField(primary_key=True)
+    roomassignmentid = models.AutoField(primary_key=True)
     eventid = models.ForeignKey(Event, models.DO_NOTHING, db_column='eventid', blank=True, null=True)
     courseid = models.ForeignKey(Course, models.DO_NOTHING, db_column='courseid', blank=True, null=True)
     roomid = models.ForeignKey(Room, models.DO_NOTHING, db_column='roomid')
@@ -91,7 +91,7 @@ class Roomassignment(models.Model):
 
 
 class Schedule(models.Model):
-    scheduleid = models.IntegerField(primary_key=True)
+    scheduleid = models.AutoField(primary_key=True)
     roomassignmentid = models.ForeignKey(Roomassignment, models.DO_NOTHING, db_column='roomassignmentid', blank=True, null=True)
     scheduleddate = models.DateField(blank=True, null=True)
     starttime = models.TimeField()
