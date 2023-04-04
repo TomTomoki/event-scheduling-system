@@ -13,7 +13,7 @@ SELECT JSON_AGG(JSON_BUILD_OBJECT(
             ),
       'Event',(SELECT JSON_AGG(JSON_BUILD_OBJECT(
             'Event', e.EventName,
-            'MainContact', s2.SatffFirstName||" "||s2.SatffLastName))
+            'MainContact', s2.StaffFirstName || ' ' || s2.StaffLastName))
             FROM RoomAssignment ra LEFT JOIN Event e
             ON ra.EventID = e.EventID LEFT JOIN Staff s2
             ON e.MainContact = s2.StaffID
