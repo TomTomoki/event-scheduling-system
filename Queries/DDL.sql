@@ -1,3 +1,7 @@
+/*
+CREATE DATABASE SchedulingSystem;
+*/
+
 create table Faculty (
 	FacultyID serial primary key,
 	FacultyFirstName VARCHAR(20) not null,
@@ -28,7 +32,7 @@ create table Room (
 
 create table Department (
 	DepartmentID serial primary key,
-	DepartmentName VARCHAR(20)
+	DepartmentName VARCHAR(50)
 );
 
 create table Staff (
@@ -51,7 +55,7 @@ create table RoomAssignment (
 	EventID int references Event (EventID) ON DELETE CASCADE ON UPDATE CASCADE,
 	CourseID int references Course (CourseID) ON DELETE CASCADE ON UPDATE CASCADE,
 	RoomID int not null references Room (RoomID) ON DELETE CASCADE ON UPDATE CASCADE,
-	ExpectedParticipant int NOT NULL,
+	ExpectedParticipant bigint NOT NULL,
     Detail VARCHAR(200)
 );
 
@@ -59,11 +63,41 @@ create table Schedule (
 	ScheduleID serial primary key,
 	RoomAssignmentID int references RoomAssignment (RoomAssignmentID) ON DELETE SET NULL ON UPDATE CASCADE,
     ScheduledDate date,
-	StartTime time with time zone not null,
-	EndTime time with time zone not null,
+	StartTime time not null,
+	EndTime time  not null,
 	Recurring Boolean not null,
 	DayOfWeek text,
 	RecurringStartDate date,
 	RecurringEndDate date,
 	CHECK (StartTime < EndTime)
+);
+
+
+create table ScheduleAudit_RoomChange (
+	RoomAuditID serial primary key,
+	ScheduleID int references Schedule (ScheduleID) ON DELETE NO ACTION ON UPDATE CASCADE,
+	OldRoomAssignmentID int references RoomAssignment (RoomAssignmentID) ON DELETE NO ACTION ON UPDATE CASCADE,
+	NEWRoomAssignmentID int references RoomAssignment (RoomAssignmentID) ON DELETE NO ACTION ON UPDATE CASCADE
+);
+CREATE TABLE ScheduleAudit_TimeChange(
+	TimeAuditID serial primary key,
+	ScheduleID int references Schedule (ScheduleID) ON DELETE NO ACTION ON UPDATE CASCADE,
+    OldScheduledDate date,
+	NewScheduleDate date,
+	OldStartTime time not null,
+	NewStartTime time not null,
+	OldEndTime time  not null,
+	NewEndTime time  not null
+);
+CREATE TABLE ScheduleAudit_RecurringStats(
+	TimeAuditID serial primary key,
+	ScheduleID int references Schedule (ScheduleID) ON DELETE NO ACTION ON UPDATE CASCADE,
+    OldRecurringStat Boolean not null,
+	NewRecurringStat Boolean not null,
+	OldDayOfWeek text,
+	NewDayOfWeek text,
+	OldRecurringStartDate date,
+	NewRecurringStartDate date,
+	OldRecurringEndDate date,
+	NewRecurringEndDate date
 );
