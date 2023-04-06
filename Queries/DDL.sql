@@ -101,5 +101,3 @@ CREATE TABLE ScheduleAudit_RecurringStats(
 	OldRecurringEndDate date,
 	NewRecurringEndDate date
 );
-
-
