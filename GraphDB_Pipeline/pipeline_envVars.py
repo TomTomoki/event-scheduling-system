@@ -1,8 +1,20 @@
 import psycopg2
 from gremlin_python.driver import client, serializer
+import os
+
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_HOST = os.getenv('DB_HOST')
+DB_PORT = os.getenv('DB_PORT')
+
+GREMLIN_ENDPOINT = os.getenv('GREMLIN_ENDPOINT')
+GREMLIN_DATABASE = os.getenv('GREMLIN_DATABASE')
+GREMLIN_GRAPH = os.getenv('GREMLIN_GRAPH')
+GREMLIN_PASSWORD = os.getenv('GREMLIN_PASSWORD')
 
 try:
-    conn = psycopg2.connect("dbname='XXX' user='XXX' host='XXX.postgres.database.azure.com' password='XXX'")
+    conn = psycopg2.connect("dbname='" + DB_NAME + "' user='" + DB_USER + "' host='" + DB_HOST + "' password='" + DB_PASSWORD + "'")
 except:
     print("ERROR: Unable to connect to the database")
 
@@ -84,9 +96,9 @@ for x in schedule_room_assignments:
 
 
 try:
-    client = client.Client('wss://XXX.gremlin.cosmos.azure.com:443/', 'g',
-                        username="/dbs/XXX/colls/XXX",
-                        password="XXX",
+    client = client.Client('wss://' + GREMLIN_ENDPOINT + '.gremlin.cosmos.azure.com:443/', 'g',
+                        username="/dbs/" + GREMLIN_DATABASE + "/colls/" + GREMLIN_GRAPH,
+                        password=GREMLIN_PASSWORD,
                         message_serializer=serializer.GraphSONSerializersV2d0()
                         )
 except:
