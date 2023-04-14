@@ -10,21 +10,6 @@
 </ul>
 {% endif %}
 
-<h1>Existing Schedules</h1>
-{% if all_schedules %}
-    <ul>
-        {% for schedule in all_schedules %}
-            {% if schedule.roomassignmentid.eventid.eventname %}
-                <li><a href="{% url 'form:detail' schedule.scheduleid %}">ScheduleID: {{ schedule.scheduleid }}, EventName: {{ schedule.roomassignmentid.eventid.eventname }}</a></li>
-            {% else %}
-                <li><a href="{% url 'form:detail' schedule.scheduleid %}">ScheduleID: {{ schedule.scheduleid }}, CourseName: {{ schedule.roomassignmentid.courseid.coursename }}</a></li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-{% else %}
-    <h3>No existing schedule</h3>
-{% endif %}
-
 <h1>Schedule a Event/Course</h1>
 <form action="{% url 'form:index' %}" method="post">
 <fieldset>
@@ -96,3 +81,18 @@
 </fieldset><br>
 <input type="submit" value="Schedule">
 </form>
+
+<h1>Existing Schedules</h1>
+{% if all_schedules %}
+    <ul>
+        {% for schedule in all_schedules %}
+            {% if schedule.roomassignmentid.eventid.eventname %}
+                <li><a href="{% url 'form:detail' schedule.scheduleid %}">ScheduleID: {{ schedule.scheduleid }}, EventName: {{ schedule.roomassignmentid.eventid.eventname }}</a></li>
+            {% else %}
+                <li><a href="{% url 'form:detail' schedule.scheduleid %}">ScheduleID: {{ schedule.scheduleid }}, CourseName: {{ schedule.roomassignmentid.courseid.coursename }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>No existing schedule</h3>
+{% endif %}
