@@ -14,7 +14,11 @@
 {% if all_schedules %}
     <ul>
         {% for schedule in all_schedules %}
-            <li><a href="{% url 'form:detail' schedule.scheduleid %}">ScheduleID: {{ schedule.scheduleid }}</a></li>
+            {% if schedule.roomassignmentid.eventid.eventname %}
+                <li><a href="{% url 'form:detail' schedule.scheduleid %}">ScheduleID: {{ schedule.scheduleid }}, EventName: {{ schedule.roomassignmentid.eventid.eventname }}</a></li>
+            {% else %}
+                <li><a href="{% url 'form:detail' schedule.scheduleid %}">ScheduleID: {{ schedule.scheduleid }}, CourseName: {{ schedule.roomassignmentid.courseid.coursename }}</a></li>
+            {% endif %}
         {% endfor %}
     </ul>
 {% else %}
@@ -52,8 +56,8 @@
     <label>Detail:</label>
     <textarea name="detail" rows="4" cols="50"></textarea>
     <br><br><br>
-    <label>Schedule Date (if it's a one-time event):</label>
-    <input type="date" name="scheduleddate">
+    <label>Schedule Date (specify the date of the first course/event if recurring):</label>
+    <input type="date" name="scheduleddate" required>
     <br><br><br>
     <label>Start Time:</label>
     <input type="time" name="starttime" required>
