@@ -72,6 +72,11 @@ create table Schedule (
 	CHECK (StartTime < EndTime)
 );
 
+-- Add a constraint to make sure if it's a recurring schedule, DayOfWeek, RecurringStartDate, and RecurringEndDate are not null.
+alter table Schedule
+add constraint check_recurring_fields 
+check ( NOT (recurring AND (dayofweek is null AND recurringstartdate is null AND recurringenddate is null) ));
+
 
 create table ScheduleAudit_RoomChange (
 	RoomAuditID serial primary key,
