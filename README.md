@@ -34,6 +34,6 @@
 
 - ERDS
 
-![Postgres SQL ERD](/Database structure/DatabaseERdiagram(PostgresSQL).png "SQL ERD")
+<img src="/Database structure/DatabaseERdiagram(PostgresSQL).png"  title="SQL ERD">
 
-![Graphic Document ERD](/Database structure/DatabaseERdiagram(Graphic).png "SQL ERD")
+<img src="/Database structure/DatabaseERdiagram(Graphic).png"  title="Graphic ERD">
