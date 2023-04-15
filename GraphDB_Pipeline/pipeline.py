@@ -58,7 +58,7 @@ schedule_room_assignments = cur.fetchall()
 queries_add_vertices = []
 
 for c in courses:
-    queries_add_vertices.append('g.addV("course").property("courseID", ' + str(c[0]) + ').property("courseName", "' + c[1] + '").property("academicYear", ' + str(c[2]) + ').property("academicSemester", "' + c[3] + '").property("pk", "/pk")')
+    queries_add_vertices.append('g.addV("course").property("id", "' + str(c[0]) + ': ' + c[1] + '").property("courseID", ' + str(c[0]) + ').property("courseName", "' + c[1] + '").property("academicYear", ' + str(c[2]) + ').property("academicSemester", "' + c[3] + '").property("pk", "/pk")')
 
 for e in events:
     queries_add_vertices.append('g.addV("event").property("eventID", ' + str(e[0]) + ').property("eventName", "' + e[1] + '").property("pk", "/pk")')
